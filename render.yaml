@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: content-dashboard
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: AIRTABLE_API_KEY
+        sync: false
+      - key: AIRTABLE_BASE_ID
+        sync: false
+      - key: MAKE_CONTENT_WEBHOOK_URL
+        sync: false
+      - key: WEBHOOK_SECRET
+        sync: false
