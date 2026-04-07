@@ -1,8 +1,6 @@
 import type { Klant, Opdracht, OpdrachStatus } from './types'
 
 const BASE_URL = 'https://api.airtable.com/v0'
-const BASE_ID = process.env.AIRTABLE_BASE_ID!
-const API_KEY = process.env.AIRTABLE_API_KEY!
 
 // Tabel IDs uit de Make.com blueprint
 const TABLES = {
@@ -12,15 +10,21 @@ const TABLES = {
 
 function headers() {
   return {
-    Authorization: `Bearer ${API_KEY}`,
+    Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
     'Content-Type': 'application/json',
   }
+}
+
+function baseUrl() {
+  const base = process.env.AIRTABLE_BASE_ID
+  if (!base) throw new Error('AIRTABLE_BASE_ID is not set')
+  return `${BASE_URL}/${base}`
 }
 
 // ─── Generieke fetch helpers ──────────────────────────────────────────────────
 
 async function atFetch(path: string, options?: RequestInit) {
-  const res = await fetch(`${BASE_URL}/${BASE_ID}${path}`, {
+  const res = await fetch(`${baseUrl()}${path}`, {
     ...options,
     headers: headers(),
     cache: 'no-store',
