@@ -13,6 +13,10 @@ out/
 # OS
 .DS_Store
 
+# TypeScript build cache
+tsconfig.tsbuildinfo
+next-env.d.ts
+
 # Logs
 *.log
 
